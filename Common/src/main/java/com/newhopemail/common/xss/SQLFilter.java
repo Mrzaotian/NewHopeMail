@@ -6,9 +6,8 @@
  * 版权所有，侵权必究！
  */
 
-package io.renren.common.xss;
-
-import io.renren.common.exception.RRException;
+package com.newhopemail.common.xss;
+import com.newhopemail.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 
 /**
