@@ -1,6 +1,5 @@
 package com.newhopemail.member.service.impl;
 
-import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -11,6 +10,7 @@ import com.newhopemail.common.utils.Query;
 import com.newhopemail.member.dao.IntegrationChangeHistoryDao;
 import com.newhopemail.member.entity.IntegrationChangeHistoryEntity;
 import com.newhopemail.member.service.IntegrationChangeHistoryService;
+import org.springframework.stereotype.Service;
 
 
 @Service("integrationChangeHistoryService")

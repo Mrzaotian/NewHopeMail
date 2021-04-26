@@ -69,5 +69,9 @@
             <artifactId>tomcat-embed-core</artifactId>
             <version>9.0.45</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
     </dependencies>
 </project>
