@@ -32,7 +32,7 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
     @Value("${my.value}")
-    int value;
+    String value;
     @RequestMapping("/test")
     public R test(){
         return R.ok().put("value",value);

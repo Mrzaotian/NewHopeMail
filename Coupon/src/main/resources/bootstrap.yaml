@@ -1,7 +1,26 @@
+server:
+  port: 7000
 spring:
+  application:
+    name: coupon
   cloud:
     nacos:
       server-addr: 192.168.5.5:8848
-  application:
-    name: coupon
+      config:
+        file-extension: yaml
+        group: dev
+        namespace: 03b67d6f-9e3c-4b96-b8c9-cdc9fd148e9a
+        extension-configs[0]:
+          data-id: datasource.yaml
+          group: dev
+          refresh: true
+        extension-configs[1]:
+          data-id: mybatis.yaml
+          group: dev
+          refresh: true
+        extension-configs[2]:
+          data-id: other.yaml
+          group: dev
+          refresh: true
+
 
