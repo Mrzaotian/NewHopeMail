@@ -2,6 +2,8 @@ package com.newhopemail.member.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+
+import com.newhopemail.member.feign.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +30,15 @@ import com.newhopemail.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
-
+    @Autowired
+    private CouponService couponService;
+    @RequestMapping("/coupons")
+    public  R coupons(){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setNickname("苹果");
+        R member = couponService.member();
+        return R.ok().put("member", memberEntity).put("coupon",member.get("coupon"));
+    }
     /**
      * 列表
      */
