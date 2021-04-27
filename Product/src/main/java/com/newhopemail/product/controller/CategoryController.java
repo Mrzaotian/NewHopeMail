@@ -1,6 +1,7 @@
 package com.newhopemail.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,11 @@ import com.newhopemail.common.utils.R;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-
+    @RequestMapping("/list/category")
+    public R listCategory(){
+        List<CategoryEntity> category=categoryService.listCategory();
+        return R.ok().put("categories",category);
+    }
     /**
      * 列表
      */
@@ -75,8 +80,7 @@ public class CategoryController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
-
+        categoryService.removeBatch(Arrays.asList(catIds));
         return R.ok();
     }
 

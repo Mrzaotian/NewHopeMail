@@ -2,7 +2,21 @@ spring:
   cloud:
     nacos:
       server-addr: 192.168.5.5:8848
+      config:
+        namespace: 63009055-6111-4929-852b-cf957d27d08f
+        file-extension: yaml
+        group: dev
+        extension-configs[0]:
+          data-id: database.yaml
+          group: dev
+          refresh: true
+        extension-configs[1]:
+          data-id: mybatis.yaml
+          group: dev
+          refresh: true
   application:
     name: product
+server:
+  port: 10000
 
 

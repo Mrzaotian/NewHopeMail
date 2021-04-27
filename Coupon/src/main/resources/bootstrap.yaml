@@ -18,9 +18,5 @@ spring:
           data-id: mybatis.yaml
           group: dev
           refresh: true
-        extension-configs[2]:
-          data-id: other.yaml
-          group: dev
-          refresh: true
 
 
