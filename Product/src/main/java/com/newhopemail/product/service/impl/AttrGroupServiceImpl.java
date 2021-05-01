@@ -1,5 +1,7 @@
 package com.newhopemail.product.service.impl;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.newhopemail.product.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import java.util.Map;
@@ -15,7 +17,7 @@ import com.newhopemail.product.service.AttrGroupService;
 
 import javax.annotation.Resource;
 
-
+@Slf4j
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
     @Resource
@@ -32,12 +34,20 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Override
     public PageUtils queryPageById(Map<String, Object> params, Long catelogId) {
-        if(catelogId==0){
-            IPage<AttrGroupEntity> iPage=this.page(new Query<AttrGroupEntity>().getPage(params));
-            return new PageUtils(iPage);
-        }
-        QueryWrapper<AttrGroupEntity> queryWrapper=new QueryWrapper<AttrGroupEntity>().eq("catelog_id",catelogId);
         String key = (String) params.get("key");
+        QueryWrapper<AttrGroupEntity> queryWrapper=new QueryWrapper<>();
+        if(catelogId==0)return wrapperKey(key,queryWrapper,params);
+        queryWrapper.eq("catelog_id",catelogId);
+        return wrapperKey(key,queryWrapper,params);
+    }
+
+    @Override
+    public Long[] getPath(Long attrGroupId) {
+        return categoryService.getPath(this.getById(attrGroupId).getCatelogId());
+    }
+
+
+    public PageUtils wrapperKey(String key,QueryWrapper<AttrGroupEntity> queryWrapper,Map<String, Object> params){
         if (StringUtils.isNotBlank(key)){
             queryWrapper.and((obj)->{
                 obj.eq("attr_group_id",key).or().like("attr_group_name",key);
@@ -45,10 +55,5 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }
         IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), queryWrapper);
         return new PageUtils(page);
-    }
-
-    @Override
-    public Long[] getPath(Long attrGroupId) {
-        return categoryService.getPath(this.getById(attrGroupId).getCatelogId());
     }
 }

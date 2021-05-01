@@ -1,5 +1,6 @@
 package com.newhopemail.product.service.impl;
-
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.newhopemail.product.service.CategoryBrandRelationService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,17 +15,21 @@ import com.newhopemail.common.utils.Query;
 import com.newhopemail.product.dao.CategoryDao;
 import com.newhopemail.product.entity.CategoryEntity;
 import com.newhopemail.product.service.CategoryService;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
-
+    @Resource
+    CategoryBrandRelationService categoryBrandRelationService;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-
         IPage<CategoryEntity> page = this.page(
                 new Query<CategoryEntity>().getPage(params),
-                new QueryWrapper<CategoryEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -61,6 +66,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         getChildPath(categoryId,path);
         Collections.reverse(path);
         return path.toArray(new Long[path.size()]);
+    }
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        if (StringUtils.isNotBlank(category.getName()))
+            categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
     }
 
     public void getChildPath(Long categoryId, List<Long> path){

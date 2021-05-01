@@ -26,7 +26,6 @@ import com.newhopemail.common.utils.R;
  * @email mr.zaotian@gmail.com
  * @date 2021-04-26 01:58:32
  */
-@Slf4j
 @RestController
 @RequestMapping("product/brand")
 public class BrandController {
@@ -67,13 +66,11 @@ public class BrandController {
      */
     @RequestMapping("/update")
     public R update(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand){
-        log.info(brand.getName());
-		brandService.updateById(brand);
+		brandService.updateDetail(brand);
         return R.ok();
     }
     @RequestMapping("/update/switch")
     public R updateSwitch(@Validated({UpdateStatusGroup.class}) @RequestBody BrandEntity brand){
-        log.info(brand.getName());
         brandService.updateById(brand);
         return R.ok();
     }
