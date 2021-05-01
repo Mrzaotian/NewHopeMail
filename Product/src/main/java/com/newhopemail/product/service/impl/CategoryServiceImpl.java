@@ -2,9 +2,7 @@ package com.newhopemail.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,6 +21,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+
         IPage<CategoryEntity> page = this.page(
                 new Query<CategoryEntity>().getPage(params),
                 new QueryWrapper<CategoryEntity>()
@@ -44,7 +43,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public void removeBatch(List<Long> asList) {
-//        TODO
         this.removeByIds(asList);
     }
 
@@ -55,5 +53,20 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort())))
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public Long[] getPath(Long categoryId) {
+        List<Long> path=new ArrayList<>();
+        getChildPath(categoryId,path);
+        Collections.reverse(path);
+        return path.toArray(new Long[path.size()]);
+    }
+
+    public void getChildPath(Long categoryId, List<Long> path){
+        if (categoryId==0)return;
+        path.add(categoryId);
+        CategoryEntity categoryEntity = this.getById(categoryId);
+        getChildPath(categoryEntity.getParentCid(),path);
     }
 }

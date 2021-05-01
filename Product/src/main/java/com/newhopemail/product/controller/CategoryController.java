@@ -3,6 +3,8 @@ package com.newhopemail.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import com.newhopemail.common.utils.R;
  * @email mr.zaotian@gmail.com
  * @date 2021-04-26 01:58:32
  */
+@Slf4j
 @RestController
 @RequestMapping("product/category")
 public class CategoryController {
@@ -40,11 +43,8 @@ public class CategoryController {
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = categoryService.queryPage(params);
-
         return R.ok().put("page", page);
     }
-
-
     /**
      * 信息
      */
@@ -83,5 +83,6 @@ public class CategoryController {
         categoryService.removeBatch(Arrays.asList(catIds));
         return R.ok();
     }
+
 
 }

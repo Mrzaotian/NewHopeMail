@@ -18,4 +18,3 @@ spring:
     name: product
 server:
   port: 10000
-

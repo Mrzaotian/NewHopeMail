@@ -1,0 +1,16 @@
+server:
+  port: 30000
+spring:
+  application:
+    name: third-oss
+  cloud:
+    nacos:
+      server-addr: 192.168.5.5:8848
+      config:
+        namespace: dc845857-2d99-4e37-825d-ed67fe9ccb8e
+        file-extension: yaml
+        group: dev
+        extension-configs[0]:
+          data-id: aliyun-oss.yaml
+          group: dev
+          refesh: true
