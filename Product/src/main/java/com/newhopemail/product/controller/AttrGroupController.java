@@ -1,19 +1,23 @@
 package com.newhopemail.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.newhopemail.product.entity.AttrAttrgroupRelationEntity;
+import com.newhopemail.product.entity.AttrEntity;
+import com.newhopemail.product.service.AttrAttrgroupRelationService;
+import com.newhopemail.product.service.AttrService;
+import com.newhopemail.product.vo.AttrGroupRelationVo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import com.newhopemail.product.entity.AttrGroupEntity;
 import com.newhopemail.product.service.AttrGroupService;
 import com.newhopemail.common.utils.PageUtils;
 import com.newhopemail.common.utils.R;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -23,11 +27,60 @@ import com.newhopemail.common.utils.R;
  * @email mr.zaotian@gmail.com
  * @date 2021-04-26 01:58:32
  */
+@Slf4j
 @RestController
 @RequestMapping("product/attrgroup")
 public class AttrGroupController {
-    @Autowired
+    @Resource
     private AttrGroupService attrGroupService;
+    @Resource
+    private AttrService attrService;
+    /**
+     *
+     *获取关联信息
+     * @param attrgroupId
+     * @return
+     */
+
+    @GetMapping("{attrgroupId}/attr/relation")
+    public R getRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> list= attrService.getRelation(attrgroupId);
+        return R.ok().put("data",list);
+    }
+
+    /**
+     * 添加关联信息
+     *
+     */
+    @PostMapping("attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> relationVo){
+        attrGroupService.addAttrRelation(relationVo);
+
+        return R.ok();
+    }
+
+
+    /**
+     *
+     * 获取没有关联的分组信息
+     */
+    @GetMapping("{attrgroupId}/noattr/relation")
+    public R getNoRelation(@PathVariable("attrgroupId") Long attrgroupId,
+                           @RequestParam Map<String,Object> map){
+        PageUtils pageUtils=attrGroupService.getNoRelation(attrgroupId,map);
+        log.info(pageUtils.toString());
+        return R.ok().put("page",pageUtils);
+    }
+
+    /**
+     * 删除关联信息
+     *
+     */
+    @PostMapping("attr/relation/delete")
+    public R deleteRelation(@RequestBody AttrGroupRelationVo[] relationVos){
+        attrService.removeRelation(relationVos);
+        return R.ok();
+    }
 
     /**
      * 列表

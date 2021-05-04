@@ -3,7 +3,9 @@ package com.newhopemail.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newhopemail.common.utils.PageUtils;
 import com.newhopemail.product.entity.AttrGroupEntity;
+import com.newhopemail.product.vo.AttrGroupRelationVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +21,9 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     PageUtils queryPageById(Map<String, Object> params, Long catelogId);
 
     Long[] getPath(Long attrGroupId);
+
+    PageUtils getNoRelation(Long attrgroupId, Map<String, Object> map);
+
+    void addAttrRelation(List<AttrGroupRelationVo> relationVo);
 }
 

@@ -17,14 +17,11 @@ public class ProductExceptionHandler {
     public R validException(MethodArgumentNotValidException e){
         BindingResult bindingResult = e.getBindingResult();
         Map<String,String> map=new HashMap<>();
-        bindingResult.getFieldErrors().forEach(item->{
-            map.put(item.getField(),item.getDefaultMessage());
-        });
+        bindingResult.getFieldErrors().forEach(item-> map.put(item.getField(),item.getDefaultMessage()));
         return R.error(BaseCode.VALID_EXCEPTION.getCode(),BaseCode.VALID_EXCEPTION.getMessage()).put("message",map);
     }
     @ExceptionHandler(value = Throwable.class)
     public R handleException(Throwable throwable){
-        log.error("出现错误：",throwable);
         return R.error(BaseCode.UNKNOWN_EXCEPTION.getCode(), BaseCode.UNKNOWN_EXCEPTION.getMessage());
     }
 }
