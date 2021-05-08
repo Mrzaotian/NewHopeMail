@@ -2,6 +2,8 @@ package com.newhopemail.coupon.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+
+import com.newhopemail.common.to.SkuReductionTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,14 @@ import com.newhopemail.common.utils.R;
 public class SkuFullReductionController {
     @Autowired
     private SkuFullReductionService skuFullReductionService;
+
+    @RequestMapping("/saveInfo")
+    public R saveInfo(@RequestBody SkuReductionTO skuFullReduction){
+        skuFullReductionService.saveInfo(skuFullReduction);
+
+        return R.ok();
+    }
+
 
     /**
      * 列表

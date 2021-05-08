@@ -6,6 +6,7 @@ import com.newhopemail.product.service.AttrAttrgroupRelationService;
 import com.newhopemail.product.service.AttrService;
 import com.newhopemail.product.service.CategoryService;
 import com.newhopemail.product.vo.AttrGroupRelationVo;
+import com.newhopemail.product.vo.AttrGroupWithAttrVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -102,6 +103,20 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             return relationEntity;
         }).collect(Collectors.toList());
         relationService.saveBatch(collect);
+    }
+
+    @Override
+    public List<AttrGroupWithAttrVo> getAttrGroupWithAttr(Long catelogId) {
+        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId);
+        List<AttrGroupEntity> attrGroupEntities = this.list(wrapper);
+        List<AttrGroupWithAttrVo> collect = attrGroupEntities.stream().map(item -> {
+            AttrGroupWithAttrVo groupWithAttrVo = new AttrGroupWithAttrVo();
+            BeanUtils.copyProperties(item, groupWithAttrVo);
+            List<AttrEntity> attr = attrService.getRelation(item.getAttrGroupId());
+            groupWithAttrVo.setAttrs(attr);
+            return groupWithAttrVo;
+        }).collect(Collectors.toList());
+        return collect;
     }
 
 

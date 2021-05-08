@@ -6,7 +6,11 @@ import com.newhopemail.product.entity.CategoryEntity;
 import com.newhopemail.product.service.BrandService;
 import com.newhopemail.product.service.CategoryService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,8 +20,6 @@ import com.newhopemail.common.utils.Query;
 import com.newhopemail.product.dao.CategoryBrandRelationDao;
 import com.newhopemail.product.entity.CategoryBrandRelationEntity;
 import com.newhopemail.product.service.CategoryBrandRelationService;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -64,4 +66,12 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         this.baseMapper.updateCategory(catId,name);
     }
 
+    @Override
+    public List<BrandEntity> getBrandsList(Long catId) {
+        QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId);
+        List<CategoryBrandRelationEntity> list = this.list(wrapper);
+        List<Long> collect = list.stream().map(CategoryBrandRelationEntity::getBrandId)
+                .collect(Collectors.toList());
+        return brandService.listByIds(collect);
+    }
 }

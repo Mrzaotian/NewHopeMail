@@ -2,8 +2,11 @@ package com.newhopemail.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newhopemail.common.utils.PageUtils;
+import com.newhopemail.product.entity.BrandEntity;
 import com.newhopemail.product.entity.CategoryBrandRelationEntity;
+import com.newhopemail.product.vo.BrandVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,5 +25,7 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     void updateDetail(Long brandId, String name);
 
     void updateCategory(Long catId, String name);
+
+    List<BrandEntity> getBrandsList(Long catId);
 }
 

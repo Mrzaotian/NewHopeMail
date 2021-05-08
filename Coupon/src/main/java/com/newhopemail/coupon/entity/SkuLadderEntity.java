@@ -32,7 +32,7 @@ public class SkuLadderEntity implements Serializable {
 	/**
 	 * 满几件
 	 */
-	private Integer fullCount;
+	private Long fullCount;
 	/**
 	 * 打几折
 	 */

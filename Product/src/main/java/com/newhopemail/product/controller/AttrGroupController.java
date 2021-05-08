@@ -9,6 +9,7 @@ import com.newhopemail.product.entity.AttrEntity;
 import com.newhopemail.product.service.AttrAttrgroupRelationService;
 import com.newhopemail.product.service.AttrService;
 import com.newhopemail.product.vo.AttrGroupRelationVo;
+import com.newhopemail.product.vo.AttrGroupWithAttrVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,12 +37,8 @@ public class AttrGroupController {
     @Resource
     private AttrService attrService;
     /**
-     *
      *获取关联信息
-     * @param attrgroupId
-     * @return
      */
-
     @GetMapping("{attrgroupId}/attr/relation")
     public R getRelation(@PathVariable("attrgroupId") Long attrgroupId){
         List<AttrEntity> list= attrService.getRelation(attrgroupId);
@@ -59,9 +56,17 @@ public class AttrGroupController {
         return R.ok();
     }
 
+    /**
+     * 获取分类下所有分组&关联属性
+     *
+     */
+    @GetMapping("{catelogId}/withattr")
+    public R getAttrGroupWithAttr(@PathVariable("catelogId") Long catelogId){
+        List<AttrGroupWithAttrVo> list=attrGroupService.getAttrGroupWithAttr(catelogId);
+        return R.ok().put("data",list);
+    }
 
     /**
-     *
      * 获取没有关联的分组信息
      */
     @GetMapping("{attrgroupId}/noattr/relation")

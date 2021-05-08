@@ -3,6 +3,7 @@ package com.newhopemail.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newhopemail.common.utils.PageUtils;
 import com.newhopemail.product.entity.SpuInfoEntity;
+import com.newhopemail.product.vo.SpuInfoVo;
 
 import java.util.Map;
 
@@ -16,5 +17,8 @@ import java.util.Map;
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveInfo(SpuInfoVo spuInfo);
+
 }
 

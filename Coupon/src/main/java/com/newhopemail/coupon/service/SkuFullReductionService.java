@@ -1,6 +1,7 @@
 package com.newhopemail.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.newhopemail.common.to.SkuReductionTO;
 import com.newhopemail.common.utils.PageUtils;
 import com.newhopemail.coupon.entity.SkuFullReductionEntity;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface SkuFullReductionService extends IService<SkuFullReductionEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveInfo(SkuReductionTO skuFullReduction);
 }
 

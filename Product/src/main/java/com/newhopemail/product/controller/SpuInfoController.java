@@ -2,7 +2,11 @@ package com.newhopemail.product.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+
+import com.newhopemail.common.valid.AddGroup;
+import com.newhopemail.product.vo.SpuInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,9 +58,8 @@ public class SpuInfoController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
-
+    public R save(@Validated(AddGroup.class) @RequestBody SpuInfoVo spuInfo){
+        spuInfoService.saveInfo(spuInfo);
         return R.ok();
     }
 
