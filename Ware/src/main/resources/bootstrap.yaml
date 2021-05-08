@@ -2,7 +2,13 @@ spring:
   cloud:
     nacos:
       server-addr: 192.168.5.5:8848
+      config:
+        namespace: c2f1b450-4dad-4bbe-9ba6-a1e6043f9d80
+        file-extension: yaml
+        group: dev
   application:
     name: ware
+server:
+  port: 11000
 
 
