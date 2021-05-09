@@ -1,13 +1,12 @@
 package com.newhopemail.ware.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
+
+import com.newhopemail.ware.vo.MargeVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.newhopemail.ware.entity.PurchaseEntity;
 import com.newhopemail.ware.service.PurchaseService;
@@ -29,6 +28,18 @@ public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
 
+    @PostMapping("/merge")
+    public R marge(@RequestBody MargeVO margeVO){
+        purchaseService.margeList(margeVO);
+        return R.ok();
+    }
+
+    @GetMapping("/unreceive/list")
+    public R unreceiveList(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPageUnreceive(params);
+
+        return R.ok().put("page", page);
+    }
     /**
      * 列表
      */
@@ -56,7 +67,6 @@ public class PurchaseController {
     @RequestMapping("/save")
     public R save(@RequestBody PurchaseEntity purchase){
 		purchaseService.save(purchase);
-
         return R.ok();
     }
 

@@ -82,8 +82,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     public void saveInfo(SpuInfoVo spuInfo) {
         SpuInfoEntity spuInfoEntity=new SpuInfoEntity();
         BeanUtils.copyProperties(spuInfo,spuInfoEntity);
-        spuInfoEntity.setCreateTime(new Date());
-        spuInfoEntity.setUpdateTime(new Date());
         this.save(spuInfoEntity);
         List<String> decript = spuInfo.getDecript();
         SpuInfoDescEntity spuInfoDescEntity=new SpuInfoDescEntity();
