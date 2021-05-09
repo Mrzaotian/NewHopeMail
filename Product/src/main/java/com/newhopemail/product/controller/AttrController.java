@@ -1,8 +1,12 @@
 package com.newhopemail.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.newhopemail.product.entity.ProductAttrValueEntity;
+import com.newhopemail.product.service.ProductAttrValueService;
 import com.newhopemail.product.vo.AttrResponse;
 import com.newhopemail.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import com.newhopemail.product.service.AttrService;
 import com.newhopemail.common.utils.PageUtils;
 import com.newhopemail.common.utils.R;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -27,9 +32,20 @@ import com.newhopemail.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
-
+    @Resource
+    ProductAttrValueService productAttrValueService;
+    @RequestMapping("base/listforspu/{spuId}")
+    public R baseList(@PathVariable Long spuId){
+        List<ProductAttrValueEntity> list =productAttrValueService.list(new QueryWrapper<ProductAttrValueEntity>().eq("spu_id", spuId));;
+        return R.ok().put("data",list);
+    }
+    @PostMapping("update/{spuId}")
+    public R updateBySpuId(@PathVariable Long spuId,@RequestBody List<ProductAttrValueEntity> list){
+        productAttrValueService.updateBySpuId(spuId,list);
+        return R.ok();
+    }
     @GetMapping("/{type}/list/{catelogId}")
-    public R baseList(@RequestParam Map<String, Object> params,
+    public R typeList(@RequestParam Map<String, Object> params,
                       @PathVariable("catelogId") Long catelogId,
                       @PathVariable("type")  String type){
         PageUtils page=attrService.queryBaseById(params,catelogId,type);

@@ -2,9 +2,11 @@ package com.newhopemail.ware.controller;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.newhopemail.ware.vo.MargeVO;
+import com.newhopemail.ware.vo.PurchaseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import com.newhopemail.ware.service.PurchaseService;
 import com.newhopemail.common.utils.PageUtils;
 import com.newhopemail.common.utils.R;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -25,12 +28,22 @@ import com.newhopemail.common.utils.R;
 @RestController
 @RequestMapping("ware/purchase")
 public class PurchaseController {
-    @Autowired
+    @Resource
     private PurchaseService purchaseService;
 
+    @PostMapping("done")
+    public R finish(@RequestBody PurchaseVo purchaseVo){
+        purchaseService.finish(purchaseVo);
+        return R.ok();
+    }
+    @PostMapping("received")
+    public R received(@RequestBody List<Long> ids){
+        purchaseService.received(ids);
+        return R.ok();
+    }
     @PostMapping("/merge")
     public R marge(@RequestBody MargeVO margeVO){
-        purchaseService.margeList(margeVO);
+        purchaseService.mergeList(margeVO);
         return R.ok();
     }
 

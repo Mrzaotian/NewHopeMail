@@ -36,6 +36,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.newhopemail</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
