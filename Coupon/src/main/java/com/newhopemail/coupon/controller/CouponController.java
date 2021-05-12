@@ -31,12 +31,6 @@ import com.newhopemail.common.utils.R;
 public class CouponController {
     @Autowired
     private CouponService couponService;
-    @Value("${my.value}")
-    String value;
-    @RequestMapping("/test")
-    public R test(){
-        return R.ok().put("value",value);
-    }
     @RequestMapping("/member/list")
     public R member(){
         CouponEntity couponEntity=new CouponEntity();

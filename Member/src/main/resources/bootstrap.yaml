@@ -7,6 +7,6 @@ spring:
       config:
         file-extension: yaml
         group: dev
-        namespace: 98dcb520-31f2-4c3f-be1e-373b2ec19477
+        namespace: 701c3d53-1950-4a8e-9238-b4c221b65606
 server:
   port: 8000

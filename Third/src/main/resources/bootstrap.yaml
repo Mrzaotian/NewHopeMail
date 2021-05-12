@@ -7,10 +7,6 @@ spring:
     nacos:
       server-addr: 192.168.5.5:8848
       config:
-        namespace: dc845857-2d99-4e37-825d-ed67fe9ccb8e
+        namespace: bbccda83-8f77-4c05-9251-dc9ab6baac6b
         file-extension: yaml
         group: dev
-        extension-configs[0]:
-          data-id: aliyun-oss.yaml
-          group: dev
-          refesh: true

@@ -9,4 +9,4 @@ spring:
       config:
         file-extension: yaml
         group: dev
-        namespace: 369ba334-e727-4f4a-a4d0-c915320a860c
+        namespace: 2811139e-b1a0-4ef5-8153-311f1a71ed8f

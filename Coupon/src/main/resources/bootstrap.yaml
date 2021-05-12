@@ -9,14 +9,6 @@ spring:
       config:
         file-extension: yaml
         group: dev
-        namespace: 03b67d6f-9e3c-4b96-b8c9-cdc9fd148e9a
-        extension-configs[0]:
-          data-id: datasource.yaml
-          group: dev
-          refresh: true
-        extension-configs[1]:
-          data-id: mybatis.yaml
-          group: dev
-          refresh: true
+        namespace: 0d1b7d9f-ff47-4c06-8c29-3c4bfa039d02
 
 
